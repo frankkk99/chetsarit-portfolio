@@ -499,23 +499,127 @@ footer{
 .reveal-delay-3{transition-delay:0.3s}
 
 /* ─── RESPONSIVE ─── */
+
+/* Tablet */
 @media(max-width:900px){
+  /* cursor ไม่ต้องใช้บน touch */
+  #cursor-dot,#cursor-ring{display:none}
+  html{cursor:auto}
+  body,a,button{cursor:auto}
+
   nav{padding:0 24px}
   .nav-links{display:none}
   .nav-burger{display:flex}
+
   #hero{padding:0 24px 72px}
   section,#about,#experience,#projects,#showreel,#skills,#certificates,#contact{padding:88px 24px}
   .divider{margin:0 24px}
-  .about-grid,.skills-grid{grid-template-columns:1fr;gap:56px}
-  .exp-item{grid-template-columns:1fr;gap:10px}
-  .projects-grid{grid-template-columns:1fr}
-  .project-card:first-child{aspect-ratio:16/9}
-  .hero-stats{gap:28px}
-  .stat-num{font-size:28px}
-  .contact-links{flex-wrap:wrap;gap:32px 48px}
+
+  .about-grid{grid-template-columns:1fr;gap:48px}
+  .skills-grid{grid-template-columns:1fr;gap:48px}
+
+  .exp-item{grid-template-columns:1fr;gap:8px}
+  .exp-badge{align-self:auto;width:fit-content}
+
+  .projects-grid{grid-template-columns:1fr;gap:3px}
+  .project-card:first-child{aspect-ratio:16/9;grid-column:auto}
+  /* desc visible always on touch (no hover) */
+  .project-desc{opacity:1;transform:none}
+
+  .hero-bottom{flex-direction:column;gap:36px;align-items:flex-start}
+  .hero-stats{gap:28px;flex-wrap:wrap}
+  .stat-num{font-size:30px}
+
+  .contact-links{flex-wrap:wrap;gap:28px 40px;justify-content:flex-start}
   footer{flex-direction:column;gap:8px;text-align:center}
-  .hero-bottom{flex-direction:column;gap:40px;align-items:flex-start}
 }
+
+/* Mobile */
+@media(max-width:480px){
+  :root{--font-display:'Space Grotesk',sans-serif}
+
+  nav{padding:0 20px;height:60px}
+
+  /* Hero */
+  #hero{padding:0 20px 64px}
+  .hero-label{font-size:10px;letter-spacing:0.2em;margin-bottom:20px}
+  .hero-name{font-size:clamp(42px,12vw,64px);letter-spacing:-0.025em}
+  .hero-title{font-size:13px;margin-top:24px}
+  .hero-bottom{margin-top:48px;padding-top:28px;gap:28px}
+  .hero-stats{gap:20px 28px;flex-wrap:wrap}
+  .stat-num{font-size:26px}
+  .stat-label{font-size:9px}
+  .scroll-line{height:44px}
+
+  /* Sections */
+  section,#about,#experience,#projects,#showreel,#skills,#certificates,#contact{padding:72px 20px}
+  .divider{margin:0 20px}
+  .section-eyebrow{font-size:9px;margin-bottom:36px}
+  .section-title{font-size:clamp(28px,9vw,44px);margin-bottom:48px}
+
+  /* About */
+  .about-text{font-size:15px;line-height:1.8}
+  .about-detail-label{font-size:10px}
+  .about-detail-value{font-size:12px}
+  .about-detail-item{padding:14px 0}
+  .cta-btn{padding:14px 36px;font-size:10px}
+
+  /* Experience */
+  .exp-company{font-size:15px}
+  .exp-role{font-size:10px}
+  .exp-desc li{font-size:12px}
+  .exp-item{padding:36px 0}
+
+  /* Projects */
+  .project-card{aspect-ratio:4/3}
+  .project-card:first-child{aspect-ratio:4/3}
+  .project-overlay{padding:24px}
+  .project-title{font-size:16px}
+  .project-desc{font-size:11px;max-width:100%}
+  .project-tag{font-size:8px}
+
+  /* Showreel */
+  #showreel{padding:72px 20px}
+  .play-btn{width:56px;height:56px}
+
+  /* Skills */
+  .skills-grid{gap:40px}
+  .skill-name{font-size:12px;white-space:normal;flex:1;min-width:0}
+  .skill-track{flex:none;width:80px}
+  .skill-pct{font-size:9px;width:24px}
+  .skill-row{gap:10px}
+
+  /* Certificates */
+  .cert-grid{grid-template-columns:1fr;gap:2px}
+  .cert-card{padding:22px 20px 18px}
+  .cert-name{font-size:13px}
+  .cert-issuer{font-size:9px}
+
+  /* Contact */
+  #contact{padding:100px 20px}
+  .contact-big{font-size:clamp(36px,10vw,56px);margin-bottom:36px}
+  .contact-links{flex-direction:column;align-items:flex-start;gap:24px}
+  .contact-link-val{font-size:12px}
+
+  /* Footer */
+  footer{padding:24px 20px}
+  .footer-name,.footer-copy{font-size:10px}
+
+  /* Mobile nav overlay */
+  .nav-overlay a{font-size:clamp(24px,9vw,36px)}
+}
+
+/* Safe area สำหรับ iPhone notch / Dynamic Island */
+@supports(padding-top:env(safe-area-inset-top)){
+  nav{
+    padding-left:max(20px,env(safe-area-inset-left));
+    padding-right:max(20px,env(safe-area-inset-right));
+  }
+  footer{
+    padding-bottom:max(24px,env(safe-area-inset-bottom));
+  }
+}
+
 @media(prefers-reduced-motion:reduce){
   *{animation-duration:0.001ms!important;transition-duration:0.001ms!important}
 }
@@ -821,34 +925,48 @@ footer{
 </footer>
 
 <script>
-/* ── CURSOR ── */
-const dot = document.getElementById('cursor-dot');
-const ring = document.getElementById('cursor-ring');
-let mx=0,my=0,rx=0,ry=0;
-document.addEventListener('mousemove',e=>{
-  mx=e.clientX;my=e.clientY;
-  dot.style.left=mx+'px';dot.style.top=my+'px';
-});
-(function animRing(){
-  rx+=(mx-rx)*0.12;ry+=(my-ry)*0.12;
-  ring.style.left=rx+'px';ring.style.top=ry+'px';
-  requestAnimationFrame(animRing);
-})();
-document.querySelectorAll('a,button,.project-card,.cert-card,.showreel-overlay').forEach(el=>{
-  el.addEventListener('mouseenter',()=>document.body.classList.add('cursor-hover'));
-  el.addEventListener('mouseleave',()=>document.body.classList.remove('cursor-hover'));
-});
-document.addEventListener('mousedown',()=>document.body.classList.add('cursor-click'));
-document.addEventListener('mouseup',()=>document.body.classList.remove('cursor-click'));
+/* ── TOUCH DETECTION ── */
+const isTouch = ('ontouchstart' in window) || (navigator.maxTouchPoints > 0);
 
-/* ── HERO MAGNETIC GLOW ── */
+/* ── CURSOR (desktop only) ── */
+if(!isTouch){
+  const dot = document.getElementById('cursor-dot');
+  const ring = document.getElementById('cursor-ring');
+  let mx=0,my=0,rx=0,ry=0;
+  document.addEventListener('mousemove',e=>{
+    mx=e.clientX;my=e.clientY;
+    dot.style.left=mx+'px';dot.style.top=my+'px';
+  });
+  (function animRing(){
+    rx+=(mx-rx)*0.12;ry+=(my-ry)*0.12;
+    ring.style.left=rx+'px';ring.style.top=ry+'px';
+    requestAnimationFrame(animRing);
+  })();
+  document.querySelectorAll('a,button,.project-card,.cert-card,.showreel-overlay').forEach(el=>{
+    el.addEventListener('mouseenter',()=>document.body.classList.add('cursor-hover'));
+    el.addEventListener('mouseleave',()=>document.body.classList.remove('cursor-hover'));
+  });
+  document.addEventListener('mousedown',()=>document.body.classList.add('cursor-click'));
+  document.addEventListener('mouseup',()=>document.body.classList.remove('cursor-click'));
+}
+
+/* ── HERO MAGNETIC GLOW (desktop only) ── */
 const glow = document.getElementById('heroGlow');
 const hero = document.getElementById('hero');
-hero.addEventListener('mousemove',e=>{
-  const r=hero.getBoundingClientRect();
-  glow.style.left=(e.clientX-r.left)+'px';
-  glow.style.top=(e.clientY-r.top)+'px';
-});
+if(!isTouch){
+  hero.addEventListener('mousemove',e=>{
+    const r=hero.getBoundingClientRect();
+    glow.style.left=(e.clientX-r.left)+'px';
+    glow.style.top=(e.clientY-r.top)+'px';
+  });
+}
+
+/* ── PROJECT DESC always visible on touch ── */
+if(isTouch){
+  document.querySelectorAll('.project-desc').forEach(el=>{
+    el.style.opacity='1';el.style.transform='none';
+  });
+}
 
 /* ── NAV SCROLL ── */
 const nav = document.getElementById('mainNav');
