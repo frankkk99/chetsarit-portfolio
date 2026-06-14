@@ -233,6 +233,28 @@ nav.scrolled{
 .hero-scroll{
   display:flex;flex-direction:column;align-items:center;gap:10px;
 }
+
+/* Hero photo */
+.hero-photo{
+  position:absolute;top:100px;right:48px;
+  width:clamp(120px,22vw,260px);
+  aspect-ratio:3/4;overflow:hidden;
+  border:1px solid var(--border2);
+  z-index:1;
+  opacity:0;animation:fadeUp 0.9s 0.2s var(--ease-out-expo) forwards;
+}
+.hero-photo img{
+  width:100%;height:100%;object-fit:cover;display:block;
+  filter:grayscale(1) contrast(1.05) brightness(0.95);
+  transition:filter 0.7s var(--ease-out-expo),transform 0.7s var(--ease-out-expo);
+}
+.hero-photo:hover img{filter:grayscale(0) contrast(1.05) brightness(1);transform:scale(1.03)}
+.hero-photo-tag{
+  position:absolute;bottom:0;left:0;right:0;
+  padding:9px 12px;background:rgba(0,0,0,0.72);backdrop-filter:blur(6px);
+  font-size:9px;letter-spacing:0.2em;text-transform:uppercase;color:var(--text-mid);
+  border-top:1px solid var(--border2);
+}
 .hero-scroll span{
   font-size:9px;letter-spacing:0.25em;text-transform:uppercase;
   color:var(--text-dim);writing-mode:vertical-rl;
@@ -319,6 +341,12 @@ section{padding:128px 48px}
   background-image:linear-gradient(rgba(255,255,255,0.025) 1px,transparent 1px),linear-gradient(90deg,rgba(255,255,255,0.025) 1px,transparent 1px);
   background-size:40px 40px;
 }
+.project-bg{
+  position:absolute;inset:0;width:100%;height:100%;object-fit:cover;
+  filter:grayscale(0.25) brightness(0.6) contrast(1.05);
+  transition:filter 0.5s var(--ease-out-expo),transform 0.6s var(--ease-out-expo);
+}
+.project-card:hover .project-bg{filter:grayscale(0) brightness(0.45) contrast(1.05);transform:scale(1.04)}
 .project-num{
   position:absolute;top:24px;right:28px;
   font-family:var(--font-display);font-size:11px;font-weight:500;
@@ -512,6 +540,7 @@ footer{
   .nav-burger{display:flex}
 
   #hero{padding:0 24px 72px}
+  .hero-photo{top:84px;right:24px;width:clamp(100px,28vw,180px)}
   section,#about,#experience,#projects,#showreel,#skills,#certificates,#contact{padding:88px 24px}
   .divider{margin:0 24px}
 
@@ -542,6 +571,7 @@ footer{
 
   /* Hero */
   #hero{padding:0 20px 64px}
+  .hero-photo{top:72px;right:20px;width:clamp(84px,30vw,140px)}
   .hero-label{font-size:10px;letter-spacing:0.2em;margin-bottom:20px}
   .hero-name{font-size:clamp(42px,12vw,64px);letter-spacing:-0.025em}
   .hero-title{font-size:13px;margin-top:24px}
@@ -661,6 +691,11 @@ footer{
   <div class="hero-noise"></div>
   <div class="hero-grid"></div>
   <div class="hero-glow" id="heroGlow"></div>
+
+  <div class="hero-photo">
+    <img src="images/profile.jpg" alt="Chetsarit Rotchanathanachinda — Graphic Designer &amp; Video Editor">
+    <div class="hero-photo-tag">Chetsarit · Korat</div>
+  </div>
 
   <p class="hero-label">Creative Specialist · Graphic Designer · Video Editor</p>
   <h1 class="hero-name">
@@ -785,7 +820,7 @@ footer{
   <div class="projects-grid">
 
     <div class="project-card reveal">
-      <div class="project-placeholder-grid"></div>
+      <img class="project-bg" src="images/project1_night_run.jpg" alt="Suranaree Army Night Run 2026 — Key Visual Design" loading="lazy">
       <div class="project-num">01</div>
       <div class="project-overlay">
         <p class="project-tag">Event · National Broadcast</p>
@@ -795,7 +830,7 @@ footer{
     </div>
 
     <div class="project-card reveal reveal-delay-1">
-      <div class="project-placeholder-grid"></div>
+      <img class="project-bg" src="images/project2_stadium.jpg" alt="สนามกีฬา 80 พรรษา — LED Signage Design" loading="lazy">
       <div class="project-num">02</div>
       <div class="project-overlay">
         <p class="project-tag">Sports Marketing · LED Signage</p>
@@ -805,7 +840,7 @@ footer{
     </div>
 
     <div class="project-card reveal reveal-delay-2">
-      <div class="project-placeholder-grid"></div>
+      <img class="project-bg" src="images/project3_nirin.jpg" alt="Nirin Fiber — Brand Identity &amp; Advertising Creative" loading="lazy">
       <div class="project-num">03</div>
       <div class="project-overlay">
         <p class="project-tag">Brand Strategy · Packaging</p>
